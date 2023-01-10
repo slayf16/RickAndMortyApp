@@ -1,18 +1,18 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-/*    id 'kotlin-kapt'*/
+    id 'kotlin-kapt'
 }
 /*kapt {
     correctErrorTypes = true
 }*/
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.rickandmorty"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -40,9 +40,16 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
 
- /*   //Epoxy
-    implementation "com.airbnb.android:epoxy: 5.1.1"
-    kapt("com.airbnb.android:epoxy-processor: 5.1.1")*/
+    //Epoxy
+    var epoxyVersion = "5.1.1"
+    implementation "com.airbnb.android:epoxy:$epoxyVersion"
+    implementation "com.airbnb.android:epoxy-databinding:$epoxyVersion"
+    kapt("com.airbnb.android:epoxy-processor:$epoxyVersion")
+
+    /*var epoxyVersion = "4.6.3"
+    implementation "com.airbnb.android:epoxy:$epoxyVersion"
+    implementation "com.airbnb.android:epoxy-databinding:$epoxyVersion"
+    kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"*/
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
