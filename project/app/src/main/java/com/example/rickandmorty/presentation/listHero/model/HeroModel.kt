@@ -1,36 +1,17 @@
-package com.example.rickandmorty.presentation.viewModel.listHeroes
+package com.example.rickandmorty.presentation.listHero.model
 
 import android.view.View
 import android.view.ViewParent
 import android.widget.TextView
-import androidx.lifecycle.MutableLiveData
-import com.airbnb.epoxy.EpoxyController
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.example.rickandmorty.R
 import com.example.rickandmorty.domain.Hero
 
-class HeroesController : EpoxyController() {
-
-    var heroes: List<Hero> = emptyList()
-
-    val heroClickLiveData = MutableLiveData<Long>()
-
-    override fun buildModels() {
-        heroes.forEach {
-            HeroModel(
-                it,
-                { id -> heroClickLiveData.value = id }
-            ).addTo(this)
-        }
-    }
-}
-
 data class HeroModel(
     private val hero: Hero,
     private val clickAction: (Long) -> Unit
 ) : EpoxyModelWithHolder<HeroModel.Holder>() {
-
     init {
         id(hero.id)
     }
@@ -43,9 +24,7 @@ data class HeroModel(
     }
 
     override fun getDefaultLayout() = R.layout.content_list_item
-
     override fun createNewHolder(parent: ViewParent) = Holder()
-
     class Holder : EpoxyHolder() {
         var root: View? = null
         var nameHero: TextView? = null
