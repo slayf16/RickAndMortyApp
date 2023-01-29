@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmorty.R
 import com.example.rickandmorty.data.server.RetrClient
+import com.example.rickandmorty.data.server.ServerCharacter
 import com.example.rickandmorty.data.server.ServerResponce
 import com.example.rickandmorty.domain.Hero
 import com.example.rickandmorty.domain.helper.mapper.toHero
@@ -19,35 +20,34 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
     private val recycler by lazy { findViewById<RecyclerView>(R.id.recycler) }
     private val controller = HeroesController()
-
     private var counter = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         recycler.layoutManager = LinearLayoutManager(baseContext)
         recycler.adapter = controller.adapter
-
         RetrClient.charactersService.getCharacters()
-            .enqueue(object : Callback<ServerResponce> {
+            .enqueue(object : Callback<ServerResponce>{
                 override fun onResponse(
                     call: Call<ServerResponce>,
                     response: Response<ServerResponce>
                 ) {
-                    with(controller) {
+                    with(controller){
                         heroes = response.body()?.results?.map { it.toHero() } ?: emptyList()
                         requestModelBuild()
+                        Log.e("***","succuss")
                     }
                 }
 
                 override fun onFailure(call: Call<ServerResponce>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    Log.e("***","error")
                 }
 
             })
-        controller.heroClickLiveData.observe(this) {
-            Log.e("dsfsdf", "click on $it")
-        }
+        controller.heroClickLiveData.observe(this)
+                {
+                    Log.e("dsfsdf", "click on $it")
+                }
 
     }
 }

@@ -5,5 +5,7 @@ import com.example.rickandmorty.domain.Hero
 
 fun ServerCharacter.toHero() = Hero(
     id = id,
-    name = name
+    name = name,
+    species = species,
+    location = location
 )

@@ -25,4 +25,11 @@ interface CharactersService {
 
     @GET("character")
     fun getCharacters(): Call<ServerResponce>
+
+/*
+    @GET()
+    fun getLocationInfo(A:String): Call<ServerResponce>
+*/
+
+
 }
